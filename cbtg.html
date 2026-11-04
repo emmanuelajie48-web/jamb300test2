@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAMB 300 CLUB | CBT Examination</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+:root{--black:#08090c;--panel:#111318;--panel2:#0c0e12;--white:#fff;--muted:#a4a9b5;--border:#2b2f38;--green:#d8ff3e;--red:#ff7777;--gold:#f5b800}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--black);color:var(--white);min-height:100vh;line-height:1.5;
+background-image:radial-gradient(900px 500px at 85% -5%,rgba(216,255,62,.07),transparent 60%),radial-gradient(700px 500px at 0% 40%,rgba(245,184,0,.05),transparent 60%)}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:rgba(8,9,12,.92);backdrop-filter:blur(10px)}
+.header-in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.brand img{width:52px;height:52px;object-fit:cover;border-radius:12px;border:1px solid var(--border)}
+.brand-name{font-size:16px;font-weight:800;letter-spacing:1px}
+.tagline{color:var(--muted);font-size:11px;margin-top:2px}
+.timer-chip{display:flex;align-items:center;gap:12px;padding:8px 16px;border:1px solid var(--green);border-radius:12px;background:#171c10;transition:.3s}
+.timer-chip small{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.timer-chip b{display:block;font-size:22px;color:var(--green);font-variant-numeric:tabular-nums;line-height:1.1}
+.timer-chip.warn{border-color:var(--gold);background:#1c1707}
+.timer-chip.warn b{color:var(--gold)}
+.timer-chip.danger{border-color:var(--red);background:#1f1010;animation:pulse 1s infinite}
+.timer-chip.danger b{color:var(--red)}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(255,119,119,.18)}}
+
+.container{max-width:1100px;margin:28px auto;padding:0 20px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:18px}
+.small-heading{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase}
+h2{font-size:26px;line-height:1.3;margin:8px 0}
+h3{font-size:18px;margin-bottom:6px}
+.muted{color:var(--muted);font-size:13px}
+.error{color:var(--red);white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border:1px solid transparent;border-radius:10px;font-size:14px;font-weight:bold;text-decoration:none;cursor:pointer;transition:.2s}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{background:var(--green);color:var(--black)}
+.btn-primary:hover:not(:disabled){background:#c5ed30;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--white);border-color:var(--border)}
+.btn-outline:hover:not(:disabled){border-color:var(--green);color:var(--green)}
+.btn-danger{background:#dc3535;color:#fff}
+.btn-danger:hover{background:#c42b2b}
+.btn-block{width:100%}
+
+/* EXAM TOP */
+.exam-top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.candidate-name{font-size:24px;font-weight:800;color:var(--green);overflow-wrap:anywhere}
+.overall{min-width:240px;flex:1;max-width:360px}
+.overall-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.bar{height:8px;border-radius:8px;background:#1c2027;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);border-radius:8px;transition:width .5s}
+
+.exam-grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.nav-col{position:sticky;top:96px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.subject-tab{padding:11px 16px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--white);font-size:13px;font-weight:bold;cursor:pointer;transition:.2s}
+.subject-tab:hover{border-color:#5a6150}
+.subject-tab.active{background:var(--green);border-color:var(--green);color:var(--black)}
+.subject-tab span{opacity:.7;font-weight:normal;margin-left:4px}
+
+.q-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.q-count{color:var(--muted);font-size:13px}
+.flag-btn{padding:8px 14px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-size:12px;font-weight:bold;cursor:pointer;transition:.2s}
+.flag-btn:hover{border-color:var(--gold);color:var(--gold)}
+.flag-btn.on{background:#1c1707;border-color:var(--gold);color:var(--gold)}
+.question{font-size:20px;line-height:1.65;margin:20px 0 22px;overflow-wrap:anywhere}
+.option{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 16px;margin-bottom:10px;background:var(--panel2);border:1px solid #343944;border-radius:12px;color:var(--white);font-size:15px;cursor:pointer;transition:.2s;overflow-wrap:anywhere}
+.option:hover{border-color:#5a6150;transform:translateX(3px)}
+.option .letter{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#20232b;font-weight:bold;font-size:13px;transition:.2s}
+.option.selected{border-color:var(--green);background:#171c10}
+.option.selected .letter{background:var(--green);color:var(--black)}
+.q-foot{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.hint{color:#727784;font-size:11px;margin-top:14px}
+
+/* NAVIGATOR */
+.legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin:10px 0 16px;font-size:11px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:4px;border:1px solid #3a3f4a;background:#20232b}
+.legend .l-ans{background:var(--green);border-color:var(--green)}
+.legend .l-flag{background:var(--gold);border-color:var(--gold)}
+.legend .l-cur{background:transparent;border:2px solid #fff}
+.navigation{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:7px;margin-bottom:16px;max-height:300px;overflow:auto;padding:2px}
+.nav-number{min-height:40px;border:1px solid #343944;border-radius:8px;background:#20232b;color:#fff;font-weight:bold;font-size:13px;cursor:pointer;transition:.15s}
+.nav-number:hover{border-color:var(--green)}
+.nav-number.answered{background:var(--green);border-color:var(--green);color:var(--black)}
+.nav-number.flagged{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.nav-number.current{outline:2px solid #fff;outline-offset:1px}
+.nav-stats{display:flex;justify-content:space-between;font-size:13px;margin-bottom:14px;color:var(--muted)}
+.nav-stats b{color:var(--white)}
+
+/* MODAL + TOAST */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{width:100%;max-width:460px;background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:28px}
+.modal-box h3{font-size:21px;margin-bottom:12px}
+.modal-body{color:#cfd3dc;font-size:14px;line-height:1.7;margin-bottom:22px}
+.modal-body ul{list-style:none;margin:10px 0;display:grid;gap:6px}
+.modal-body li{display:flex;justify-content:space-between;padding:9px 12px;background:var(--panel2);border:1px solid var(--border);border-radius:8px;font-size:13px}
+.modal-body li.warn b{color:var(--gold)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,30px);background:#171c10;border:1px solid var(--green);color:var(--green);padding:11px 18px;border-radius:30px;font-size:13px;opacity:0;pointer-events:none;transition:.3s;z-index:120;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:#1f1010;border-color:var(--red);color:var(--red)}
+
+/* RESULT */
+.result-hero{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:center;background:linear-gradient(145deg,#191c23,#0d0f13);padding:34px}
+.ring-wrap{position:relative;width:210px;height:210px;margin:0 auto}
+.ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#1c2027;stroke-width:14}
+.ring-fg{fill:none;stroke:var(--green);stroke-width:14;stroke-linecap:round;stroke-dasharray:439.82;stroke-dashoffset:439.82;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)}
+.ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-text b{font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
+.ring-text small{color:var(--muted);font-size:12px;margin-top:6px}
+.hero-info p{color:#b9bec8;font-size:14px;line-height:1.8;margin-bottom:18px;max-width:560px}
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.meta{padding:11px 14px;border:1px solid var(--border);border-radius:12px;background:var(--panel2)}
+.meta small{display:block;color:var(--muted);font-size:11px}
+.meta b{font-size:14px;overflow-wrap:anywhere}
+.target-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.target-row b{color:var(--white)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.tile{padding:20px 16px;text-align:center;border:1px solid var(--border);border-radius:16px;background:var(--panel)}
+.tile b{display:block;font-size:30px;font-variant-numeric:tabular-nums}
+.tile small{color:var(--muted);font-size:12px}
+.tile.t-good b{color:var(--green)}
+.tile.t-bad b{color:var(--red)}
+.tile.t-skip b{color:var(--gold)}
+
+.subject-list{display:grid;gap:12px;margin-top:16px}
+.s-row{width:100%;text-align:left;padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--panel2);color:var(--white);cursor:pointer;transition:.2s}
+.s-row:hover{border-color:var(--green);transform:translateX(3px)}
+.s-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.s-top strong{font-size:15px}
+.s-score{font-size:20px;font-weight:bold}
+.s-meta{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12px;color:var(--muted)}
+.s-meta span b{color:var(--white)}
+.c-good{color:var(--green)}.c-mid{color:var(--gold)}.c-low{color:var(--red)}
+.bar.good i{background:var(--green)}.bar.mid i{background:var(--gold)}.bar.low i{background:var(--red)}
+
+.review-controls{display:flex;flex-direction:column;gap:12px;margin:16px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 14px;border:1px solid var(--border);border-radius:30px;background:transparent;color:var(--muted);font-size:12px;font-weight:bold;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--green);color:var(--green)}
+.chip.active{background:var(--green);border-color:var(--green);color:var(--black)}
+.rv-list{display:grid;gap:14px}
+.rv{padding:18px;border:1px solid var(--border);border-left-width:4px;border-radius:14px;background:var(--panel2)}
+.rv.correct{border-left-color:var(--green)}
+.rv.wrong{border-left-color:var(--red)}
+.rv.skipped{border-left-color:var(--gold)}
+.rv-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:12px}
+.rv-head .tag{font-weight:bold}
+.rv-q{font-size:15px;line-height:1.7;margin-bottom:12px;overflow-wrap:anywhere}
+.rv-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;margin-bottom:6px;border:1px solid #30343d;border-radius:8px;font-size:13px;color:#cfd3dc;overflow-wrap:anywhere}
+.rv-opt .letter{font-weight:bold;width:20px;flex-shrink:0}
+.rv-opt em{margin-left:auto;font-style:normal;font-size:11px;font-weight:bold;white-space:nowrap}
+.rv-opt.is-correct{border-color:var(--green);background:#141a0d}
+.rv-opt.is-correct em{color:var(--green)}
+.rv-opt.is-wrong{border-color:var(--red);background:#1f1010}
+.rv-opt.is-wrong em{color:var(--red)}
+.empty{padding:26px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--border);border-radius:14px}
+
+.hist{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
+.hist th{text-align:left;color:var(--muted);font-weight:normal;font-size:12px;padding:8px 10px;border-bottom:1px solid var(--border)}
+.hist td{padding:11px 10px;border-bottom:1px solid var(--border)}
+.hist tr.now td{color:var(--green);font-weight:bold}
+.result-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:26px 0 10px}
+
+footer{text-align:center;color:#727784;font-size:12px;padding:30px 10px;border-top:1px solid var(--border);margin-top:40px}
+footer img{width:48px;border-radius:10px;display:block;margin:0 auto 10px;opacity:.9}
+
+@media (max-width:900px){
+ .exam-grid{grid-template-columns:1fr}
+ .nav-col{position:static}
+ .result-hero{grid-template-columns:1fr;text-align:center;padding:26px 20px}
+ .hero-info p{margin-left:auto;margin-right:auto}
+ .meta-grid{text-align:left}
+ .tiles{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+ .container{padding:0 14px;margin-top:18px}
+ .panel{padding:18px 16px}
+ .brand img{width:42px;height:42px}
+ .brand-name{font-size:13px}
+ .tagline{display:none}
+ .timer-chip{padding:6px 12px}
+ .timer-chip b{font-size:18px}
+ .candidate-name{font-size:19px}
+ .question{font-size:17px}
+ .option{font-size:14px;padding:12px}
+ .meta-grid{grid-template-columns:1fr}
+ .s-top{flex-direction:column;gap:4px}
+ .q-foot .btn{flex:1}
+}
+@media print{
+ body{background:#fff;color:#000}
+ header,.result-actions,.review-controls,footer,.toast,.modal{display:none!important}
+ .panel,.tile,.s-row,.rv,.meta{background:#fff!important;border-color:#bbb!important;color:#000!important}
+ .ring-text small,.muted,.s-meta,.hero-info p{color:#444!important}
+ .hero-info p{color:#333!important}
+ .result-hero{background:#fff!important}
+ .ring-bg{stroke:#ddd}.ring-fg{stroke:#2f7d00!important}
+ .rv-opt{color:#000;border-color:#ccc}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-in">
+    <a class="brand" href="index.html" aria-label="JAMB 300 CLUB home">
+      <img src="logo.png" alt="JAMB 300 CLUB logo">
+      <div>
+        <div class="brand-name">JAMB 300 CLUB</div>
+        <div class="tagline">Computer-Based Test Examination Centre</div>
+      </div>
+    </a>
+    <div class="timer-chip" id="timerChip" hidden>
+      <div>
+        <small>Time remaining</small>
+        <b id="timer">00:30:00</b>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- LOADING / ERROR -->
+  <section class="panel" id="loadingArea">
+    <h2 id="loadingTitle">Loading your examination...</h2>
+    <p class="muted" id="loadingMessage">Retrieving your candidate details.</p>
+    <p id="loadingError" class="error"></p>
+    <button id="backButton" class="btn btn-primary" style="display:none" onclick="window.location.href='index.html'">Return to homepage</button>
+  </section>
+
+  <!-- EXAM -->
+  <section id="examArea" hidden>
+    <div class="panel exam-top">
+      <div>
+        <div class="small-heading">Candidate</div>
+        <div class="candidate-name" id="candidateDisplay"></div>
+        <p class="muted" id="candidateSubjects"></p>
+      </div>
+      <div class="overall">
+        <div class="overall-row"><span>Overall progress</span><span id="answeredCount"></span></div>
+        <div class="bar"><i id="overallBar"></i></div>
+      </div>
+    </div>
+
+    <div class="exam-grid">
+      <div>
+        <div class="tabs" id="subjectTabs" role="tablist" aria-label="Examination subject"></div>
+
+        <div class="panel">
+          <div class="q-head">
+            <div>
+              <div class="small-heading" id="subjectTitle"></div>
+              <div class="q-count" id="questionProgress"></div>
+            </div>
+            <button type="button" class="flag-btn" id="flagBtn">Flag for review</button>
+          </div>
+          <div class="question" id="questionText"></div>
+          <div id="optionsArea" role="radiogroup" aria-label="Answer options"></div>
+          <div class="q-foot">
+            <button type="button" class="btn btn-outline" onclick="previousQuestion()">Previous</button>
+            <button type="button" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+          </div>
+          <p class="hint">Shortcuts: A to D select an answer, left and right arrows move between questions, F flags a question.</p>
+        </div>
+      </div>
+
+      <aside class="nav-col">
+        <div class="panel">
+          <h3>Question navigator</h3>
+          <div class="legend">
+            <span><i class="l-ans"></i>Answered</span>
+            <span><i></i>Unanswered</span>
+            <span><i class="l-flag"></i>Flagged</span>
+            <span><i class="l-cur"></i>Current</span>
+          </div>
+          <div class="navigation" id="questionNavigation"></div>
+          <div class="nav-stats"><span>Answered</span><b id="subjectAnswered"></b></div>
+          <button type="button" class="btn btn-danger btn-block" onclick="submitExam()">Submit examination</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="resultArea" hidden>
+    <div class="panel result-hero">
+      <div class="ring-wrap" role="img" aria-label="Total score">
+        <svg viewBox="0 0 180 180">
+          <circle class="ring-bg" cx="90" cy="90" r="70"></circle>
+          <circle class="ring-fg" id="ringFg" cx="90" cy="90" r="70"></circle>
+        </svg>
+        <div class="ring-text"><b id="scoreNum">0</b><small>out of 100</small></div>
+      </div>
+      <div class="hero-info">
+        <div class="small-heading">Examination submitted</div>
+        <h2 id="gradeTitle"></h2>
+        <p id="gradeMsg"></p>
+        <div class="meta-grid">
+          <div class="meta"><small>Candidate</small><b id="mCandidate"></b></div>
+          <div class="meta"><small>Date</small><b id="mDate"></b></div>
+          <div class="meta"><small>Time used</small><b id="mTime"></b></div>
+          <div class="meta"><small>Correct answers</small><b id="mCorrect"></b></div>
+        </div>
+        <div class="target-row"><span id="targetText"></span><b>Target: 75 / 100</b></div>
+        <div class="bar"><i id="targetBar"></i></div>
+      </div>
+    </div>
+
+    <div class="tiles">
+      <div class="tile t-good"><b id="tCorrect">0</b><small>Correct</small></div>
+      <div class="tile t-bad"><b id="tWrong">0</b><small>Wrong</small></div>
+      <div class="tile t-skip"><b id="tSkipped">0</b><small>Unanswered</small></div>
+      <div class="tile"><b id="tTotal">0</b><small>Total questions</small></div>
+    </div>
+
+    <div class="panel">
+      <h3>Subject performance</h3>
+      <p class="muted">Your score is the number of correct answers divided by the total questions, shown out of 100.</p>
+      <div class="subject-list" id="subjectResults"></div>
+    </div>
+
+    <div class="panel" id="reviewPanel">
+      <h3>Answer review</h3>
+      <p class="muted">Go through every question to see what you picked and the correct answer.</p>
+      <div class="review-controls">
+        <div class="chips" id="reviewSubjects"></div>
+        <div class="chips" id="reviewFilters"></div>
+      </div>
+      <div class="rv-list" id="reviewList"></div>
+    </div>
+
+    <div class="panel" id="historyPanel">
+      <h3>Your recent attempts</h3>
+      <div id="historyBody"></div>
+    </div>
+
+    <div class="result-actions">
+      <button type="button" class="btn btn-primary" onclick="window.location.href='index.html'">Practise again</button>
+      <button type="button" class="btn btn-outline" onclick="window.print()">Print or save result</button>
+      <a class="btn btn-outline" href="https://wa.me/2348160641823" target="_blank" rel="noopener">Contact us</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <img src="logo.png" alt="JAMB 300 CLUB">
+  &copy; 2026 JAMB 300 CLUB &middot; CBT PRACTICE
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/*
+QUESTION FORMAT:
+QUESTION ~ OPTION A ~ OPTION B ~ OPTION C ~ OPTION D ~ ANSWER
+
+0 = A
+1 = B
+2 = C
+3 = D
+
+Each question may span multiple lines.
+English requires 60 questions.
+Every other subject requires 40 questions.
+*/
+
+const rawQuestions = {
+
+Mathematics: `
+Simplify: 3x + 5x - 2x.~4x~6x~8x~10x~1
+Solve: 2x + 5 = 17.~4~5~6~7~2
+Evaluate: 2³ × 2².~16~24~32~64~2
+Find v144.~10~11~12~14~2
+Factorise x² - 9.~(x - 3)(x + 3)~(x - 9)(x + 1)~(x - 3)²~(x + 9)(x - 1)~0
+Find 15% of 200.~15~20~25~30~3
+If y = 3x + 2, find y when x = 4.~10~12~14~16~2
+The sum of the interior angles of a triangle is~90°~180°~270°~360°~1
+Solve x² - 5x + 6 = 0.~x = 1 or 6~x = 2 or 3~x = -2 or -3~x = 0 or 5~1
+Evaluate log10 1000.~1~2~3~10~2
+Find the gradient of y = 4x + 7.~4~7~11~28~0
+Find the mean of 2, 4, 6, 8 and 10.~5~6~7~8~1
+A fair die is thrown once. Probability of a 6?~1/2~1/3~1/6~5/6~2
+Differentiate y = x³ with respect to x.~x²~2x~3x²~3x~2
+Evaluate sin 30°.~0~1/2~v3/2~1~1
+Find the area of a circle of radius 7 cm, using p = 22/7.~44 cm²~77 cm²~154 cm²~308 cm²~2
+Express 0.375 as a fraction in simplest form.~1/4~3/8~5/8~3/4~1
+Solve 3x < 15.~x < 3~x < 5~x > 5~x > 3~1
+Find the 10th term of 2, 5, 8, 11, ...~26~27~29~32~2
+Evaluate ? 2x dx.~2x² + C~x² + C~2 + C~x + C~1
+Solve 5x - 7 = 18.~3~4~5~6~2
+If 3:5 = x:20, find x.~8~10~12~15~1
+Expand (x + 4)(x + 2).~x² + 6x + 8~x² + 8x + 6~x² + 2x + 8~x² + 6~0
+Simplify v50.~5v2~2v5~10v5~25v2~0
+Find the circumference of a circle of radius 7 cm, p = 22/7.~22 cm~44 cm~49 cm~154 cm~1
+Convert 2.5 km to metres.~25 m~250 m~2,500 m~25,000 m~2
+Find the median of 3, 9, 2, 7, 5.~3~5~7~9~1
+If f(x) = 2x - 3, find f(5).~5~7~10~13~1
+Solve x/4 = 6.~10~18~24~30~2
+Find the simple interest on ?5,000 at 4% per annum for 3 years.~?400~?500~?600~?800~2
+What is the sum of the first 10 positive integers?~45~50~55~60~2
+Find the slope between (1,2) and (3,6).~1~2~3~4~1
+A rectangle has length 8 cm and width 5 cm. Find its area.~13 cm²~26 cm²~40 cm²~80 cm²~2
+Evaluate 3?².~-9~-1/9~1/9~1/6~2
+How many ways can 3 different books be arranged in a row?~3~6~9~12~1
+Solve simultaneously: x + y = 7 and x - y = 1.~x=3,y=4~x=4,y=3~x=5,y=2~x=6,y=1~1
+If tan ? = 1 and ? is acute, ? equals~30°~45°~60°~90°~1
+Find the volume of a cube of side 4 cm.~16 cm³~32 cm³~48 cm³~64 cm³~3
+Express 45% as a decimal.~0.045~0.45~4.5~45~1
+The roots of x² - 9 = 0 are~3 only~-3 only~-3 and 3~0 and 9~2
+`,
+
+English: `
+Choose the word nearest in meaning to abundant.~Scarce~Plentiful~Empty~Limited~1
+Choose the opposite of ancient.~Old~Historic~Modern~Past~2
+She _____ to school every day.~go~going~goes~gone~2
+Choose the correctly spelt word.~Accomodation~Accommodation~Acommodation~Accommondation~1
+What is the plural of criterion?~Criterions~Criteria~Criterias~Criterion~1
+Choose the word nearest in meaning to candid.~Honest~Angry~Careless~Proud~0
+Choose the opposite of expand.~Increase~Enlarge~Contract~Extend~2
+Identify the adjective: The clever student answered correctly.~Student~Answered~Clever~Correctly~2
+Choose the correct sentence.~He don't know the answer.~He doesn't knows the answer.~He doesn't know the answer.~He didn't knew the answer.~2
+A person who writes dictionaries is a~Biographer~Lexicographer~Calligrapher~Geographer~1
+Neither the teacher nor the students _____ ready.~was~is~were~has~2
+Choose the opposite of transparent.~Clear~Visible~Opaque~Bright~2
+She is interested _____ science.~on~at~in~for~2
+Identify the adverb in She sang beautifully.~She~Sang~Beautifully~Song~2
+If I _____ you, I would apologise.~am~was~were~be~2
+Choose the correctly punctuated sentence.~Where are you going.~Where are you going?~Where are you going!~Where, are you going.~1
+Choose the word nearest in meaning to meticulous.~Careless~Hasty~Thorough~Lazy~2
+He said, I am tired. Choose the correct reported speech.~He said that I am tired.~He said that he was tired.~He says he tired.~He said that he is tiring.~1
+Choose the correct preposition: She depends _____ her parents.~at~in~on~with~2
+The opposite of generous is~Kind~Selfish~Helpful~Gentle~1
+Choose the correctly spelt word.~Privilege~Privelege~Priviledge~Privillage~0
+The committee _____ submitted its report.~have~has~are~were~1
+Choose the word nearest in meaning to reluctant.~Unwilling~Excited~Ready~Certain~0
+A group of cattle is called a~Pack~Flock~Herd~Swarm~2
+Choose the correct option: I have lived here _____ 2020.~for~since~from~during~1
+Identify the conjunction: I stayed home because it rained.~Stayed~Home~Because~Rained~2
+The comparative form of good is~Gooder~Best~Better~More good~2
+Choose the correct sentence.~Each of the boys have a book.~Each of the boys has a book.~Each boys has a book.~Each boy have a book.~1
+A person who cannot read or write is~Illegible~Illiterate~Ineligible~Inaudible~1
+Choose the opposite of victory.~Success~Triumph~Defeat~Achievement~2
+She speaks English _____ than her brother.~fluent~more fluently~most fluent~fluently more~1
+Choose the correct question tag: You are coming, _____?~are you~aren't you~isn't it~don't you~1
+The past tense of seek is~seeked~sought~saked~sook~1
+Choose the word nearest in meaning to obsolete.~Current~Outdated~Useful~Modern~1
+The books, together with the pen, _____ on the table.~is~was~are~has~2
+Choose the correctly spelt word.~Conscience~Concience~Consciense~Consciencee~0
+The expression once in a blue moon means~Every day~Very rarely~At night~Very quickly~1
+Choose the opposite of hostile.~Unfriendly~Aggressive~Friendly~Dangerous~2
+He is senior _____ me.~than~to~from~over~1
+Choose the word nearest in meaning to impartial.~Biased~Fair~Angry~Uncertain~1
+Choose the correct word: The news _____ surprising.~were~are~was~have been~2
+Choose the opposite of reluctant.~Unwilling~Eager~Hesitant~Doubtful~1
+Identify the noun clause: I know that she is honest.~I know~that she is honest~she is honest~is honest~1
+Choose the correct form: By next year, he _____ here for ten years.~works~will have worked~has worked~worked~1
+The word benevolent means~Cruel~Kind~Careless~Proud~1
+Choose the correctly spelt word.~Questionnaire~Questionaire~Questionnair~Questionnare~0
+Choose the correct preposition: He congratulated her _____ her success.~for~on~at~with~1
+The plural of phenomenon is~Phenomenons~Phenomena~Phenomenas~Phenomenae~1
+Choose the opposite of conceal.~Hide~Cover~Reveal~Protect~2
+A person who studies ancient remains is an~Archaeologist~Astronomer~Anthropologist~Geologist~0
+Choose the correct sentence.~Neither of the answers are correct.~Neither of the answers is correct.~Neither answers is correct.~Neither answer are correct.~1
+Choose the word nearest in meaning to concise.~Brief~Confusing~Lengthy~Unclear~0
+Choose the correct question tag: Let us go, _____?~will we~shall we~do we~aren't we~1
+The expression to break the ice means to~Destroy something~Begin a friendly conversation~Become angry~End a relationship~1
+Choose the correct form: She prefers tea _____ coffee.~than~over than~to~from~2
+Which word is an abstract noun?~Table~Honesty~Bottle~Teacher~1
+Choose the correct spelling.~Maintenance~Maintainance~Maintenence~Maintanance~0
+Choose the word opposite in meaning to frugal.~Economical~Thrifty~Wasteful~Careful~2
+Choose the correct reported speech: She said, I can swim.~She said that she can swim.~She said that she could swim.~She says she could swim.~She said that I could swim.~1
+Choose the correct sentence.~The furniture are new.~The furnitures are new.~The furniture is new.~A furniture is new.~2
+`,
+
+Physics: `
+What is the SI unit of force?~Joule~Newton~Watt~Pascal~1
+Which instrument measures electric current?~Voltmeter~Barometer~Ammeter~Thermometer~2
+Approximate acceleration due to gravity near Earth's surface is~4.9 m/s²~9.8 m/s²~15 m/s²~20 m/s²~1
+Which lens converges parallel rays of light?~Concave lens~Convex lens~Plane glass~None~1
+The SI unit of electrical resistance is~Ampere~Volt~Ohm~Coulomb~2
+The SI unit of power is~Joule~Watt~Newton~Pascal~1
+Speed is defined as~Distance × time~Distance/time~Time/distance~Displacement × time~1
+A body travels 100 m in 20 s. Its average speed is~2 m/s~5 m/s~10 m/s~20 m/s~1
+Which quantity is a vector?~Mass~Time~Temperature~Velocity~3
+The energy possessed by a moving body is~Potential energy~Kinetic energy~Chemical energy~Nuclear energy~1
+The SI unit of frequency is~Hertz~Decibel~Metre~Second~0
+Sound cannot travel through~Water~Steel~Air~Vacuum~3
+Which colour has the longest wavelength in visible light?~Violet~Blue~Green~Red~3
+Ohm's law is represented by~V = IR~P = IV²~I = VR~R = VI~0
+Two resistors of 2 O and 3 O are connected in series. Total resistance is~1 O~1.2 O~5 O~6 O~2
+The charge of an electron is~Positive~Negative~Neutral~Variable positive~1
+A convex mirror generally forms an image that is~Real and inverted~Virtual and upright~Real and enlarged~Inverted and enlarged~1
+The change of a liquid into vapour is called~Condensation~Freezing~Vaporisation~Sublimation~2
+Pressure is equal to~Force × area~Force/area~Area/force~Mass × volume~1
+The SI unit of momentum is~kg m/s~kg/m³~N/m~J/s~0
+A machine has input work 100 J and output work 80 J. Its efficiency is~20%~50%~80%~125%~2
+Which device converts electrical energy to mechanical energy?~Generator~Electric motor~Transformer~Cell~1
+The image formed by a plane mirror is~Real~Inverted vertically~Virtual and same size~Always magnified~2
+Heat transfer through a vacuum occurs by~Conduction~Convection~Radiation~Diffusion~2
+The unit of specific heat capacity is~J kg?¹ K?¹~J kg K~W/m~N/kg~0
+A wave has frequency 5 Hz and wavelength 2 m. Its speed is~2.5 m/s~7 m/s~10 m/s~20 m/s~2
+The turning effect of a force is called~Impulse~Moment~Momentum~Pressure~1
+A transformer works with~Steady DC only~Alternating current~Static charge only~Chemical energy~1
+The nucleus of an atom contains~Electrons only~Protons and neutrons~Neutrons and electrons~Protons only~1
+The SI unit of capacitance is~Farad~Tesla~Henry~Weber~0
+Which law explains action and reaction?~Newton's first law~Newton's second law~Newton's third law~Hooke's law~2
+The acceleration of a body moving at constant velocity is~Zero~Constant positive~Constant negative~Infinite~0
+The instrument used to measure atmospheric pressure is~Hydrometer~Barometer~Hygrometer~Ammeter~1
+The focal length of a plane mirror is~Zero~One metre~Infinite~Negative zero~2
+Which radiation has the greatest penetrating power among these?~Alpha~Beta~Gamma~Visible light~2
+The force that opposes relative motion between surfaces is~Thrust~Friction~Upthrust~Tension~1
+A fuse wire is connected in the circuit~In parallel~In series~Outside the circuit~Across the battery only~1
+The SI unit of magnetic flux is~Tesla~Weber~Henry~Ampere~1
+The apparent change in frequency due to relative motion is called~Diffraction~Interference~Doppler effect~Polarisation~2
+Work done is zero when force is~Parallel to displacement~Opposite displacement~Perpendicular to displacement~In the direction of motion~2
+`,
+
+Chemistry: `
+What is the chemical symbol for sodium?~S~So~Na~N~2
+The pH of a neutral solution at 25°C is~0~5~7~14~2
+Which gas is released when dilute hydrochloric acid reacts with zinc?~Oxygen~Hydrogen~Nitrogen~Chlorine~1
+The atomic number of carbon is~4~6~8~12~1
+Which of these is a noble gas?~Oxygen~Nitrogen~Argon~Hydrogen~2
+A substance made of only one type of atom is an~Element~Mixture~Compound~Solution~0
+The chemical formula of water is~HO~H2O~H2O2~OH22~1
+Which particle has a negative charge?~Proton~Neutron~Electron~Nucleus~2
+The bond in sodium chloride is mainly~Covalent~Ionic~Metallic~Hydrogen~1
+Which gas turns limewater milky?~Oxygen~Hydrogen~Carbon dioxide~Nitrogen~2
+The process of separating a soluble solid from a solution by forming crystals is~Filtration~Crystallisation~Decantation~Sublimation~1
+A catalyst changes the rate of reaction by~Increasing product mass~Lowering activation energy~Being permanently consumed~Changing the equilibrium constant always~1
+The relative molecular mass of CO2 is~28~32~40~44~3
+Oxidation can be defined as~Gain of electrons~Loss of electrons~Gain of neutrons~Loss of protons~1
+Which indicator is commonly used in acid-base titration?~Starch~Phenolphthalein~Copper sulfate~Sodium chloride~1
+The major component of natural gas is~Ethane~Methane~Propane~Butane~1
+Members of a homologous series have the same~Molecular mass~Functional group~Boiling point~Number of carbon atoms~1
+The functional group of alcohols is~-COOH~-CHO~-OH~-NH2~2
+Which method separates coloured dyes in ink?~Distillation~Chromatography~Filtration~Evaporation only~1
+The gas used in the Haber process is~Oxygen and hydrogen~Nitrogen and hydrogen~Nitrogen and oxygen~Carbon dioxide and hydrogen~1
+An isotope has the same number of~Neutrons~Protons~Nucleons~Electron shells always~1
+The oxidation number of oxygen in most compounds is~-2~-1~0~+2~0
+Which of these is an alkene?~Methane~Ethane~Ethene~Ethyne~2
+The formula of benzene is~C6H6~C6H12~C2H6~C6H14~0
+A solution containing the maximum amount of solute at a given temperature is~Dilute~Unsaturated~Saturated~Colloidal~2
+Which metal is commonly extracted from bauxite?~Iron~Aluminium~Copper~Zinc~1
+The process of coating iron with zinc is called~Alloying~Galvanisation~Electrolysis~Cracking~1
+Which gas supports combustion?~Nitrogen~Carbon dioxide~Oxygen~Argon~2
+The number of moles in 18 g of water (Mr = 18) is~0.5~1~2~18~1
+An acid reacts with a base to form salt and~Hydrogen~Oxygen~Water~Carbon~2
+Which of these is a strong acid?~Ethanoic acid~Hydrochloric acid~Carbonic acid~Citric acid~1
+The first member of the alkane series is~Methane~Ethane~Propane~Butane~0
+The process of breaking large hydrocarbons into smaller molecules is~Polymerisation~Cracking~Hydrogenation~Neutralisation~1
+Which of the following is a mixture?~Pure water~Oxygen gas~Air~Sodium chloride crystal~2
+The electrode connected to the positive terminal during electrolysis is the~Cathode~Anode~Salt bridge~Electrolyte~1
+Rusting of iron requires oxygen and~Nitrogen~Moisture~Helium~Carbon monoxide only~1
+Which gas is commonly used to fill electric bulbs?~Oxygen~Argon~Chlorine~Ammonia~1
+The chemical formula of calcium carbonate is~CaCO3~CaCl2~CaO~CaSO4~0
+A reaction that releases heat to the surroundings is~Endothermic~Exothermic~Reversible only~Photochemical only~1
+The main ore of iron is commonly~Haematite~Bauxite~Galena~Cinnabar~0
+`,
+
+Biology: `
+The basic structural and functional unit of life is the~Tissue~Organ~Cell~System~2
+Which organelle is mainly responsible for photosynthesis?~Mitochondrion~Chloroplast~Ribosome~Nucleus~1
+Which blood cells transport most oxygen?~Red blood cells~White blood cells~Platelets~Lymphocytes only~0
+The male reproductive part of a flower is the~Stigma~Ovary~Stamen~Petal~2
+Hereditary information in most organisms is carried by~Starch~DNA~Glucose~Water~1
+The green pigment required for photosynthesis is~Haemoglobin~Chlorophyll~Melanin~Keratin~1
+The organ that pumps blood around the human body is the~Liver~Lung~Heart~Kidney~2
+The functional unit of the kidney is the~Neuron~Nephron~Alveolus~Villus~1
+Which gas is absorbed by plants during photosynthesis?~Oxygen~Nitrogen~Carbon dioxide~Hydrogen~2
+The process by which green plants manufacture food is~Respiration~Transpiration~Photosynthesis~Excretion~2
+Which part of a cell controls most cell activities?~Cell wall~Nucleus~Vacuole~Golgi body~1
+A group of similar cells performing a function forms a~Tissue~System~Population~Species~0
+Which blood component helps in clotting?~Red cells~Platelets~Plasma only~Antibodies only~1
+The human gas-exchange structures in the lungs are the~Nephrons~Alveoli~Villi~Bronchioles only~1
+Which vitamin is produced in the skin with suitable sunlight exposure?~Vitamin A~Vitamin B12~Vitamin C~Vitamin D~3
+The transfer of pollen from anther to stigma is~Fertilisation~Pollination~Germination~Dispersal~1
+Which organism is a producer in a food chain?~Grass~Goat~Lion~Fungus~0
+The loss of water vapour from plant leaves is~Translocation~Transpiration~Respiration~Excretion~1
+The basic unit of inheritance is the~Gene~Tissue~Organ~Chromosome pair only~0
+Which division of the nervous system includes the brain and spinal cord?~Peripheral nervous system~Central nervous system~Autonomic nerves only~Endocrine system~1
+An organism that feeds on dead organic matter as a decomposer is often a~Fungus~Green plant~Herbivore~Producer~0
+The organ responsible for producing insulin is the~Pancreas~Spleen~Gall bladder~Lung~0
+Which of these is a mammal?~Tilapia~Frog~Bat~Lizard~2
+The main function of roots is to absorb~Sunlight~Water and mineral salts~Carbon dioxide from air~Oxygen for leaves only~1
+The process by which organisms release energy from food is~Photosynthesis~Respiration~Transpiration~Pollination~1
+Which ecological relationship benefits both organisms?~Parasitism~Mutualism~Competition~Predation~1
+The vector of malaria is the female~Housefly~Anopheles mosquito~Tsetse fly~Blackfly~1
+The blood vessels that carry blood away from the heart are~Veins~Arteries~Capillaries only~Lymph vessels~1
+Which part of the flower develops into a fruit after fertilisation?~Petal~Anther~Ovary~Sepal~2
+A change in inherited genetic material is called a~Mutation~Adaptation only~Respiration~Succession~0
+Which organisms have cells without a true nucleus?~Fungi~Animals~Bacteria~Green plants~2
+The largest organ of the human body is the~Liver~Skin~Heart~Brain~1
+Which of these is a renewable natural resource?~Coal~Petroleum~Sunlight~Natural gas~2
+The removal of metabolic waste from an organism is~Nutrition~Excretion~Digestion~Assimilation~1
+Which nutrient is mainly used for growth and tissue repair?~Protein~Vitamin C~Water only~Fibre~0
+The first trophic level in a typical food chain consists of~Primary consumers~Producers~Secondary consumers~Decomposers only~1
+The human heart has how many chambers?~Two~Three~Four~Five~2
+Which structure controls the opening and closing of stomata?~Guard cells~Root hairs~Xylem vessels~Phloem tubes~0
+The fusion of male and female gametes is called~Pollination~Fertilisation~Germination~Mitosis~1
+Organisms of the same species living in an area form a~Community~Population~Ecosystem~Biome~1
+`
+
+};
+
+/* ===================== QUESTION BANK PARSER ===================== */
+
+const questionBank = {};
+let questionBankReady = true;
+
+function expectedQuestionCount(subject) {
+    return subject === "English" ? 60 : 40;
+}
+
+function parseQuestionBank(subject, source) {
+    const records = [];
+    const lines = source.trim().split(/\r?\n/);
+    let currentRecord = "";
+
+    for (const originalLine of lines) {
+        const line = originalLine.trim();
+        if (!line) continue;
+
+        currentRecord += (currentRecord ? " " : "") + line;
+
+        /* A record ends only when the answer index closes the line. */
+        if (!/~[0-3]$/.test(currentRecord)) continue;
+
+        const fields = currentRecord.split("~");
+
+        if (fields.length !== 6) {
+            throw new Error(
+                subject + ", question " + (records.length + 1) +
+                ": each question must have one question, four options, " +
+                "and one answer index. Check the ~ separators."
+            );
+        }
+
+        const question = fields[0].trim();
+        const options = fields.slice(1, 5).map(function (o) {
+            return o.replace(/\s+/g, " ").trim();
+        });
+        const answer = Number(fields[5]);
+
+        if (!question || options.some(function (o) { return !o; })) {
+            throw new Error(
+                subject + ", question " + (records.length + 1) +
+                ": a question or option is empty."
+            );
+        }
+
+        records.push({
+            question: question.replace(/\s+/g, " "),
+            options: options,
+            answer: answer
+        });
+
+        currentRecord = "";
+    }
+
+    if (currentRecord.trim()) {
+        throw new Error(
+            subject + ": the last question is incomplete. " +
+            "Its answer must end in ~0, ~1, ~2, or ~3."
+        );
+    }
+
+    const expected = expectedQuestionCount(subject);
+
+    if (records.length !== expected) {
+        throw new Error(
+            subject + " has " + records.length +
+            " questions, but exactly " + expected + " are required."
+        );
+    }
+
+    return records;
+}
+
+function showLoadingError(message) {
+    document.getElementById("loadingTitle").textContent = "Examination could not start";
+    document.getElementById("loadingMessage").textContent = "Please check the error below.";
+    document.getElementById("loadingError").textContent = message;
+    document.getElementById("backButton").style.display = "inline-flex";
+}
+
+try {
+    for (const subject of Object.keys(rawQuestions)) {
+        questionBank[subject] = parseQuestionBank(subject, rawQuestions[subject]);
+    }
+} catch (error) {
+    questionBankReady = false;
+    showLoadingError(error.message);
+}
+
+/* ===================== HELPERS ===================== */
+
+const $ = function (id) { return document.getElementById(id); };
+
+function el(tag, cls, text) {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text !== undefined) node.textContent = text;
+    return node;
+}
+
+let toastTimer;
+function toast(text, bad) {
+    const t = $("toast");
+    t.textContent = text;
+    t.classList.toggle("bad", !!bad);
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 3200);
+}
+
+let modalOpen = false;
+function showModal(title, bodyNode, actions) {
+    $("modalTitle").textContent = title;
+    const body = $("modalBody");
+    body.innerHTML = "";
+    body.appendChild(bodyNode);
+    const box = $("modalActions");
+    box.innerHTML = "";
+    actions.forEach(function (a) {
+        const b = el("button", "btn " + a.cls, a.label);
+        b.type = "button";
+        b.onclick = function () { closeModal(); if (a.fn) a.fn(); };
+        box.appendChild(b);
+    });
+    $("modal").hidden = false;
+    modalOpen = true;
+    box.lastChild.focus();
+}
+function closeModal() {
+    $("modal").hidden = true;
+    modalOpen = false;
+}
+
+function pad(n) { return String(n).padStart(2, "0"); }
+function formatClock(s) {
+    s = Math.max(0, s);
+    return pad(Math.floor(s / 3600)) + ":" + pad(Math.floor((s % 3600) / 60)) + ":" + pad(s % 60);
+}
+function formatDuration(s) {
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    return (h ? h + "h " : "") + m + "m " + sec + "s";
+}
+function bandClass(pct) { return pct >= 70 ? "good" : pct >= 50 ? "mid" : "low"; }
+
+function countUp(node, to, decimals, ms) {
+    if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) {
+        node.textContent = to.toFixed(decimals);
+        return;
+    }
+    const start = performance.now();
+    function tick(now) {
+        const p = Math.min((now - start) / ms, 1);
+        node.textContent = (to * (1 - Math.pow(1 - p, 3))).toFixed(decimals);
+        if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+
+/* ===================== EXAM STATE ===================== */
+
+const EXAM_MINUTES = 30;                     /* change the exam length here */
+const EXAM_DURATION = EXAM_MINUTES * 60;
+const SUBJECT_LIST = ["Mathematics", "English", "Physics", "Chemistry", "Biology"];
+const PASS_TARGET = 75;                      /* target score out of 100 */
+
+let candidateName = "";
+let selectedSubjects = [];
+let currentSubject = "";
+let currentQuestionIndex = 0;
+let answers = {};
+let flags = {};
+let remainingSeconds = EXAM_DURATION;
+let timerInterval = null;
+let submitted = false;
+let examActive = false;
+let reviewSubject = "";
+let reviewFilter = "all";
+let lastResults = [];
+
+/* ===================== INITIALISE ===================== */
+
+function initialiseExam() {
+    if (!questionBankReady) return;
+
+    try {
+        candidateName = (localStorage.getItem("jam300CandidateName") || "").trim();
+
+        let savedSubjects;
+        try {
+            savedSubjects = JSON.parse(localStorage.getItem("jam300Subjects") || "[]");
+        } catch (error) {
+            savedSubjects = [];
+        }
+
+        selectedSubjects = Array.isArray(savedSubjects)
+            ? Array.from(new Set(savedSubjects.filter(function (s) { return SUBJECT_LIST.includes(s); })))
+            : [];
+
+        if (!candidateName || selectedSubjects.length !== 1) {
+            showLoadingError(
+                "Candidate details are missing or invalid. Return to the " +
+                "homepage, enter your name, and select your subject."
+            );
+            return;
+        }
+
+        for (const subject of selectedSubjects) {
+            if (!questionBank[subject]) {
+                showLoadingError("The question bank for " + subject + " is unavailable.");
+                return;
+            }
+            answers[subject] = {};
+            flags[subject] = {};
+        }
+
+        $("candidateDisplay").textContent = candidateName;
+        $("candidateSubjects").textContent = "Subject: " + selectedSubjects.join(", ");
+
+        currentSubject = selectedSubjects[0];
+
+        $("loadingArea").hidden = true;
+        $("examArea").hidden = false;
+        $("timerChip").hidden = false;
+
+        examActive = true;
+        buildSubjectTabs();
+        showQuestion();
+        startTimer();
+
+    } catch (error) {
+        showLoadingError("Unable to start the examination: " + error.message);
+    }
+}
+
+/* ===================== SUBJECT TABS ===================== */
+
+function buildSubjectTabs() {
+    const container = $("subjectTabs");
+    container.innerHTML = "";
+
+    /* With only one subject there is nothing to switch, so hide the tabs. */
+    container.hidden = selectedSubjects.length < 2;
+
+    selectedSubjects.forEach(function (subject) {
+        const b = el("button", "subject-tab" + (subject === currentSubject ? " active" : ""));
+        b.type = "button";
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-selected", subject === currentSubject);
+        b.appendChild(document.createTextNode(subject));
+        b.appendChild(el("span", "", Object.keys(answers[subject]).length + "/" + questionBank[subject].length));
+        b.onclick = function () {
+            if (submitted) return;
+            currentSubject = subject;
+            currentQuestionIndex = 0;
+            buildSubjectTabs();
+            showQuestion();
+        };
+        container.appendChild(b);
+    });
+}
+
+/* ===================== QUESTION ===================== */
+
+function showQuestion() {
+    const questions = questionBank[currentSubject];
+    const q = questions[currentQuestionIndex];
+
+    $("subjectTitle").textContent = currentSubject;
+    $("questionProgress").textContent = "Question " + (currentQuestionIndex + 1) + " of " + questions.length;
+    $("questionText").textContent = (currentQuestionIndex + 1) + ". " + q.question;
+
+    const optionsArea = $("optionsArea");
+    optionsArea.innerHTML = "";
+
+    q.options.forEach(function (option, index) {
+        const selected = answers[currentSubject][currentQuestionIndex] === index;
+        const b = el("button", "option" + (selected ? " selected" : ""));
+        b.type = "button";
+        b.setAttribute("role", "radio");
+        b.setAttribute("aria-checked", selected);
+        b.appendChild(el("span", "letter", String.fromCharCode(65 + index)));
+        b.appendChild(el("span", "", option));
+        b.onclick = function () { selectAnswer(index); };
+        optionsArea.appendChild(b);
+    });
+
+    updateFlagButton();
+    updateNavigation();
+}
+
+function selectAnswer(index) {
+    if (submitted) return;
+    answers[currentSubject][currentQuestionIndex] = index;
+
+    const buttons = $("optionsArea").children;
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.toggle("selected", i === index);
+        buttons[i].setAttribute("aria-checked", i === index);
+    }
+    updateNavigation();
+    buildSubjectTabs();
+}
+
+function updateFlagButton() {
+    const on = !!flags[currentSubject][currentQuestionIndex];
+    const b = $("flagBtn");
+    b.classList.toggle("on", on);
+    b.textContent = on ? "Flagged for review" : "Flag for review";
+}
+
+function toggleFlag() {
+    if (submitted) return;
+    if (flags[currentSubject][currentQuestionIndex]) {
+        delete flags[currentSubject][currentQuestionIndex];
+    } else {
+        flags[currentSubject][currentQuestionIndex] = true;
+    }
+    updateFlagButton();
+    updateNavigation();
+}
+$("flagBtn").onclick = toggleFlag;
+
+/* ===================== NAVIGATOR ===================== */
+
+function updateNavigation() {
+    const container = $("questionNavigation");
+    container.innerHTML = "";
+
+    questionBank[currentSubject].forEach(function (q, index) {
+        const answered = answers[currentSubject][index] !== undefined;
+        const flagged = !!flags[currentSubject][index];
+
+        const b = el("button", "nav-number" +
+            (flagged ? " flagged" : answered ? " answered" : "") +
+            (index === currentQuestionIndex ? " current" : ""), String(index + 1));
+        b.type = "button";
+        b.setAttribute("aria-label", "Question " + (index + 1) +
+            (answered ? ", answered" : ", unanswered") + (flagged ? ", flagged" : ""));
+        b.onclick = function () {
+            if (submitted) return;
+            currentQuestionIndex = index;
+            showQuestion();
+        };
+        container.appendChild(b);
+    });
+
+    let answered = 0, total = 0;
+    selectedSubjects.forEach(function (subject) {
+        total += questionBank[subject].length;
+        answered += Object.keys(answers[subject]).length;
+    });
+
+    $("answeredCount").textContent = answered + " / " + total + " answered";
+    $("overallBar").style.width = (answered / total * 100) + "%";
+    $("subjectAnswered").textContent =
+        Object.keys(answers[currentSubject]).length + " / " + questionBank[currentSubject].length;
+}
+
+function nextQuestion() {
+    if (submitted) return;
+
+    if (currentQuestionIndex < questionBank[currentSubject].length - 1) {
+        currentQuestionIndex++;
+    } else {
+        const i = selectedSubjects.indexOf(currentSubject);
+        if (i < selectedSubjects.length - 1) {
+            currentSubject = selectedSubjects[i + 1];
+            currentQuestionIndex = 0;
+            buildSubjectTabs();
+            toast("Moved to " + currentSubject);
+        } else {
+            toast("You have reached the last question.");
+            return;
+        }
+    }
+    showQuestion();
+}
+
+function previousQuestion() {
+    if (submitted) return;
+
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+    } else {
+        const i = selectedSubjects.indexOf(currentSubject);
+        if (i > 0) {
+            currentSubject = selectedSubjects[i - 1];
+            currentQuestionIndex = questionBank[currentSubject].length - 1;
+            buildSubjectTabs();
+            toast("Moved to " + currentSubject);
+        } else {
+            toast("You are at the first question.");
+            return;
+        }
+    }
+    showQuestion();
+}
+
+/* Keyboard shortcuts */
+document.addEventListener("keydown", function (e) {
+    if (modalOpen) {
+        if (e.key === "Escape") closeModal();
+        return;
+    }
+    if (!examActive || submitted || e.ctrlKey || e.metaKey || e.altKey) return;
+
+    const k = e.key.toLowerCase();
+    if (["a", "b", "c", "d"].includes(k)) {
+        selectAnswer(k.charCodeAt(0) - 97);
+    } else if (e.key === "ArrowRight") {
+        e.preventDefault(); nextQuestion();
+    } else if (e.key === "ArrowLeft") {
+        e.preventDefault(); previousQuestion();
+    } else if (k === "f") {
+        toggleFlag();
+    }
+});
+
+/* Warn before leaving mid-exam */
+window.addEventListener("beforeunload", function (e) {
+    if (examActive && !submitted) {
+        e.preventDefault();
+        e.returnValue = "";
+    }
+});
+
+/* ===================== TIMER ===================== */
+
+function startTimer() {
+    clearInterval(timerInterval);
+    remainingSeconds = EXAM_DURATION;
+    updateTimer();
+
+    timerInterval = setInterval(function () {
+        if (submitted) { clearInterval(timerInterval); return; }
+
+        remainingSeconds--;
+        updateTimer();
+
+        if (remainingSeconds === 600) toast("10 minutes remaining.", true);
+        if (remainingSeconds === 300) toast("5 minutes remaining.", true);
+        if (remainingSeconds === 60) toast("1 minute remaining. Your exam will submit automatically.", true);
+
+        if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            finishExam(true);
+        }
+    }, 1000);
+}
+
+function updateTimer() {
+    $("timer").textContent = formatClock(remainingSeconds);
+    const chip = $("timerChip");
+    chip.classList.toggle("warn", remainingSeconds <= 600 && remainingSeconds > 300);
+    chip.classList.toggle("danger", remainingSeconds <= 300);
+}
+
+/* ===================== SUBMISSION ===================== */
+
+function submitExam() {
+    if (submitted) return;
+
+    const body = el("div");
+    body.appendChild(el("p", "", "Please check your progress before you submit. You cannot change your answers afterwards."));
+    const list = el("ul");
+
+    selectedSubjects.forEach(function (subject) {
+        const total = questionBank[subject].length;
+        const done = Object.keys(answers[subject]).length;
+        const flagged = Object.keys(flags[subject]).length;
+        const li = el("li", done < total ? "warn" : "");
+        li.appendChild(el("span", "", subject));
+        let text = done + "/" + total + " answered";
+        if (flagged) text += ", " + flagged + " flagged";
+        li.appendChild(el("b", "", text));
+        list.appendChild(li);
+    });
+    body.appendChild(list);
+
+    showModal("Submit your examination?", body, [
+        { label: "Go back", cls: "btn-outline" },
+        { label: "Submit now", cls: "btn-danger", fn: function () { finishExam(false); } }
+    ]);
+}
+
+/* ===================== MARKING ===================== */
+
+function computeResults() {
+    return selectedSubjects.map(function (subject) {
+        const qs = questionBank[subject];
+        let correct = 0, answered = 0;
+        qs.forEach(function (q, i) {
+            const a = answers[subject][i];
+            if (a !== undefined) {
+                answered++;
+                if (a === q.answer) correct++;
+            }
+        });
+        return {
+            subject: subject,
+            total: qs.length,
+            correct: correct,
+            answered: answered,
+            wrong: answered - correct,
+            unanswered: qs.length - answered,
+            pct: correct / qs.length * 100      /* score out of 100 */
+        };
+    });
+}
+
+function gradeInfo(score) {
+    if (score >= 75) return ["Outstanding performance", "You are above the 75 target, which matches a 300 JAMB score. Keep practising under timed conditions so this holds on exam day."];
+    if (score >= 60) return ["Very good performance", "You are close to the 75 target. Review the questions you missed to close the gap."];
+    if (score >= 50) return ["Good progress", "You have a solid base. Focus on the topics you missed and practise under timed conditions."];
+    return ["Keep practising", "This is a starting point. Work through the answer review below, revise the topics you missed, and try again."];
+}
+
+function finishExam(timeUp) {
+    if (submitted) return;
+
+    submitted = true;
+    examActive = false;
+    clearInterval(timerInterval);
+    closeModal();
+
+    const timeUsed = EXAM_DURATION - Math.max(0, remainingSeconds);
+    lastResults = computeResults();
+
+    let correct = 0, wrong = 0, skipped = 0, total = 0;
+    lastResults.forEach(function (r) {
+        correct += r.correct;
+        wrong += r.wrong;
+        skipped += r.unanswered;
+        total += r.total;
+    });
+
+    /* Score = correct answers over total questions, shown out of 100 */
+    const score = correct / total * 100;
+
+    /* Save attempt history */
+    let history = [];
+    try {
+        history = JSON.parse(localStorage.getItem("jam300History2") || "[]");
+        if (!Array.isArray(history)) history = [];
+        history.unshift({
+            d: Date.now(),
+            name: candidateName,
+            score: Math.round(score * 10) / 10,
+            correct: correct,
+            total: total,
+            subjects: selectedSubjects
+        });
+        history = history.slice(0, 8);
+        localStorage.setItem("jam300History2", JSON.stringify(history));
+    } catch (error) { history = []; }
+
+    $("examArea").hidden = true;
+    $("loadingArea").hidden = true;
+    $("timerChip").hidden = true;
+    $("resultArea").hidden = false;
+    window.scrollTo(0, 0);
+
+    const g = gradeInfo(score);
+    $("gradeTitle").textContent = g[0];
+    $("gradeMsg").textContent = g[1] + (timeUp ? " Your time ran out, so the exam was submitted automatically." : "");
+
+    const now = new Date();
+    $("mCandidate").textContent = candidateName;
+    $("mDate").textContent = now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) +
+        ", " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    $("mTime").textContent = formatDuration(timeUsed);
+    $("mCorrect").textContent = correct + " / " + total;
+
+    $("tCorrect").textContent = correct;
+    $("tWrong").textContent = wrong;
+    $("tSkipped").textContent = skipped;
+    $("tTotal").textContent = total;
+
+    const gap = PASS_TARGET - score;
+    $("targetText").textContent = gap <= 0 ? "You have reached the 75 target" : (gap.toFixed(1) + " points to reach 75");
+
+    /* Animate ring, number and target bar */
+    const ring = $("ringFg");
+    ring.style.stroke = score >= PASS_TARGET ? "var(--green)" : score >= 50 ? "var(--gold)" : "var(--red)";
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            ring.style.strokeDashoffset = 439.82 * (1 - score / 100);
+            $("targetBar").style.width = Math.min(100, score / PASS_TARGET * 100) + "%";
+        });
+    });
+    countUp($("scoreNum"), score, 1, 1600);
+
+    renderSubjectResults();
+    reviewSubject = selectedSubjects[0];
+    reviewFilter = "all";
+    renderReview();
+    renderHistory(history);
+}
+
+/* ===================== RESULT RENDERING ===================== */
+
+function renderSubjectResults() {
+    const list = $("subjectResults");
+    list.innerHTML = "";
+
+    lastResults.forEach(function (r) {
+        const cls = bandClass(r.pct);
+        const row = el("button", "s-row");
+        row.type = "button";
+
+        const top = el("div", "s-top");
+        top.appendChild(el("strong", "", r.subject + " (" + r.correct + " / " + r.total + ")"));
+        top.appendChild(el("span", "s-score c-" + cls, r.pct.toFixed(1) + " / 100"));
+        row.appendChild(top);
+
+        const bar = el("div", "bar " + cls);
+        const fill = el("i");
+        bar.appendChild(fill);
+        row.appendChild(bar);
+
+        const meta = el("div", "s-meta");
+        [["Correct", r.correct], ["Wrong", r.wrong], ["Unanswered", r.unanswered], ["Total", r.total]].forEach(function (m) {
+            const s = el("span", "", m[0] + ": ");
+            s.appendChild(el("b", "", String(m[1])));
+            meta.appendChild(s);
+        });
+        row.appendChild(meta);
+
+        row.onclick = function () {
+            reviewSubject = r.subject;
+            reviewFilter = "all";
+            renderReview();
+            $("reviewPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
+        list.appendChild(row);
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () { fill.style.width = r.pct + "%"; });
+        });
+    });
+}
+
+function questionStatus(subject, index) {
+    const a = answers[subject][index];
+    if (a === undefined) return "skipped";
+    return a === questionBank[subject][index].answer ? "correct" : "wrong";
+}
+
+function renderReview() {
+    /* Subject chips (hidden when there is only one subject) */
+    const subjectBox = $("reviewSubjects");
+    subjectBox.innerHTML = "";
+    subjectBox.hidden = selectedSubjects.length < 2;
+    selectedSubjects.forEach(function (subject) {
+        const c = el("button", "chip" + (subject === reviewSubject ? " active" : ""), subject);
+        c.type = "button";
+        c.onclick = function () { reviewSubject = subject; reviewFilter = "all"; renderReview(); };
+        subjectBox.appendChild(c);
+    });
+
+    /* Filter chips with counts */
+    const counts = { all: 0, correct: 0, wrong: 0, skipped: 0 };
+    questionBank[reviewSubject].forEach(function (q, i) {
+        counts.all++;
+        counts[questionStatus(reviewSubject, i)]++;
+    });
+
+    const filterBox = $("reviewFilters");
+    filterBox.innerHTML = "";
+    [["all", "All"], ["correct", "Correct"], ["wrong", "Wrong"], ["skipped", "Unanswered"]].forEach(function (f) {
+        const c = el("button", "chip" + (f[0] === reviewFilter ? " active" : ""), f[1] + " (" + counts[f[0]] + ")");
+        c.type = "button";
+        c.onclick = function () { reviewFilter = f[0]; renderReview(); };
+        filterBox.appendChild(c);
+    });
+
+    /* Question list */
+    const list = $("reviewList");
+    list.innerHTML = "";
+    let shown = 0;
+
+    questionBank[reviewSubject].forEach(function (q, i) {
+        const status = questionStatus(reviewSubject, i);
+        if (reviewFilter !== "all" && reviewFilter !== status) return;
+        shown++;
+
+        const card = el("div", "rv " + status);
+        const head = el("div", "rv-head");
+        head.appendChild(el("span", "muted", "Question " + (i + 1)));
+        head.appendChild(el("span", "tag " + (status === "correct" ? "c-good" : status === "wrong" ? "c-low" : "c-mid"),
+            status === "correct" ? "Correct" : status === "wrong" ? "Wrong" : "Unanswered"));
+        card.appendChild(head);
+        card.appendChild(el("div", "rv-q", q.question));
+
+        const picked = answers[reviewSubject][i];
+        q.options.forEach(function (opt, oi) {
+            let cls = "rv-opt";
+            let tag = "";
+            if (oi === q.answer) { cls += " is-correct"; tag = "Correct answer"; }
+            if (oi === picked && oi !== q.answer) { cls += " is-wrong"; tag = "Your answer"; }
+            if (oi === picked && oi === q.answer) { tag = "Your answer, correct"; }
+
+            const row = el("div", cls);
+            row.appendChild(el("span", "letter", String.fromCharCode(65 + oi)));
+            row.appendChild(el("span", "", opt));
+            if (tag) row.appendChild(el("em", "", tag));
+            card.appendChild(row);
+        });
+
+        list.appendChild(card);
+    });
+
+    if (!shown) {
+        list.appendChild(el("div", "empty", "No questions in this category."));
+    }
+}
+
+function renderHistory(history) {
+    const body = $("historyBody");
+    body.innerHTML = "";
+
+    if (history.length < 2) {
+        body.appendChild(el("p", "muted", "This is your first saved attempt. Your next attempts will appear here so you can track your progress."));
+        return;
+    }
+
+    const best = Math.max.apply(null, history.map(function (h) { return h.score; }));
+    body.appendChild(el("p", "muted", "Your best score so far is " + best.toFixed(1) + " / 100."));
+
+    const table = el("table", "hist");
+    const thead = el("thead");
+    const hr = el("tr");
+    ["Date", "Subject", "Correct", "Score"].forEach(function (t) { hr.appendChild(el("th", "", t)); });
+    thead.appendChild(hr);
+    table.appendChild(thead);
+
+    const tbody = el("tbody");
+    history.slice(0, 5).forEach(function (h, i) {
+        const tr = el("tr", i === 0 ? "now" : "");
+        tr.appendChild(el("td", "", new Date(h.d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) + (i === 0 ? " (this attempt)" : "")));
+        tr.appendChild(el("td", "", (h.subjects || []).join(", ")));
+        tr.appendChild(el("td", "", h.correct + " / " + h.total));
+        tr.appendChild(el("td", "", h.score.toFixed(1) + " / 100"));
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    const wrap = el("div");
+    wrap.style.overflowX = "auto";
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+}
+
+/* ===================== START ===================== */
+
+initialiseExam();
+</script>
+</body>
+</html>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAMB 300 CLUB | CBT Practice</title>
+<meta name="description" content="Timed JAMB CBT practice, expert tutorials and strategy for students aiming for 300+.">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+:root{--black:#08090c;--panel:#111318;--panel2:#0c0e12;--white:#fff;--muted:#a4a9b5;--border:#2b2f38;--green:#d8ff3e;--red:#ff7777;--gold:#f5b800}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--black);color:var(--white);min-height:100vh;line-height:1.5;
+background-image:radial-gradient(900px 500px at 85% -5%,rgba(216,255,62,.07),transparent 60%),radial-gradient(700px 500px at 0% 40%,rgba(245,184,0,.05),transparent 60%)}
+a{color:inherit}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ico-fill{fill:currentColor;stroke:none}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:rgba(8,9,12,.9);backdrop-filter:blur(10px)}
+.header-in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:52px;height:52px;object-fit:cover;border-radius:12px;border:1px solid var(--border)}
+.brand-name{font-size:16px;font-weight:800;letter-spacing:1px}
+.tagline{color:var(--muted);font-size:11px;margin-top:2px}
+nav{display:flex;align-items:center;gap:26px}
+nav a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:bold;transition:.2s}
+nav a:hover{color:var(--green)}
+nav a.nav-cta{color:var(--black);background:var(--green);padding:10px 18px;border-radius:10px;display:inline-flex;align-items:center;gap:8px}
+nav a.nav-cta:hover{background:#c5ed30;color:var(--black)}
+.menu-btn{display:none;width:44px;height:44px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:#fff;cursor:pointer;align-items:center;justify-content:center}
+
+/* HERO */
+main{max-width:1100px;margin:44px auto;padding:0 20px;display:grid;grid-template-columns:1fr .9fr;gap:25px;align-items:start}
+.intro{padding:44px 36px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(145deg,#191c23,#0d0f13);position:relative;overflow:hidden}
+.intro .watermark{position:absolute;right:-60px;bottom:-60px;width:260px;opacity:.07;pointer-events:none}
+.badge{display:inline-block;border:1px solid #373c46;padding:9px 13px;border-radius:30px;font-size:11px;letter-spacing:.5px;color:#d5d9e1}
+.badge span{color:var(--green)}
+h1{font-size:46px;line-height:1.12;margin:26px 0 18px;letter-spacing:-1.5px}
+h1 span{color:var(--green)}
+.intro-text{color:#b9bec8;font-size:15px;line-height:1.85;position:relative;max-width:520px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px;position:relative}
+.feature{display:flex;align-items:center;gap:10px;font-size:13px;padding:10px;border:1px solid transparent;border-radius:12px;transition:.25s}
+.feature:hover{border-color:var(--border);background:#14171d}
+.check{width:26px;height:26px;flex-shrink:0;display:flex;justify-content:center;align-items:center;border-radius:8px;background:#292e22;color:var(--green);font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px;position:relative}
+.stat{padding:16px 10px;text-align:center;border:1px solid var(--border);border-radius:14px;background:var(--panel2)}
+.stat b{display:block;font-size:26px;color:var(--green)}
+.stat small{color:var(--muted);font-size:11px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;position:relative}
+
+/* LOGIN CARD */
+.login-card{background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:32px;position:sticky;top:96px}
+.small-heading{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase}
+h2{font-size:26px;line-height:1.3;margin:12px 0 10px}
+.description{color:var(--muted);font-size:13px;line-height:1.8;margin-bottom:24px}
+.form-group{margin-bottom:22px}
+.field-label{display:block;margin-bottom:10px;font-size:13px;font-weight:bold}
+input[type="text"],input[type="email"],textarea{width:100%;padding:0 14px;border:1px solid #343944;border-radius:10px;background:var(--panel2);color:var(--white);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+input[type="text"],input[type="email"]{height:49px}
+textarea{padding:13px 14px;min-height:130px;resize:vertical;line-height:1.6}
+::placeholder{color:#737987}
+input[type="text"]:focus,input[type="email"]:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(216,255,62,.12)}
+.subject-option{display:flex;align-items:center;gap:12px;padding:13px;margin-bottom:9px;border:1px solid #343944;border-radius:10px;background:var(--panel2);cursor:pointer;transition:.2s}
+.subject-option:hover:not(.disabled-option){border-color:#5a6150}
+.subject-option.selected{border-color:var(--green);background:#171c10}
+.subject-option.flash{animation:flash .6s}
+@keyframes flash{0%,100%{box-shadow:none}40%{box-shadow:0 0 0 4px rgba(216,255,62,.35)}}
+.subject-option input{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+.subject-option span{font-size:14px}
+.subject-option.disabled-option{opacity:.45;cursor:not-allowed}
+.selection-help{font-size:12px;color:var(--muted);margin:-3px 0 12px}
+.progress{height:5px;border-radius:5px;background:#1c2027;margin-top:12px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+#subjectCount{color:var(--muted);font-size:12px;margin-top:10px}
+#subjectCount.ready{color:var(--green)}
+#subjectCount.error{color:var(--red)}
+.duration-box{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;border:1px solid var(--green);border-radius:10px;background:#171c10}
+.duration-title{font-size:13px;font-weight:bold}
+.duration-description{color:var(--muted);font-size:12px;margin-top:4px}
+.duration-value{color:var(--green);font-size:20px;font-weight:bold;white-space:nowrap}
+.duration-note{color:var(--muted);font-size:12px;margin-top:9px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 22px;border:none;border-radius:10px;font-size:14px;font-weight:bold;font-family:inherit;text-decoration:none;cursor:pointer;transition:.2s}
+.btn-primary{background:var(--green);color:var(--black)}
+.btn-primary:hover{background:#c5ed30;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--white);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-block{width:100%}
+button:focus-visible,a:focus-visible,.hotspot:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #fff;outline-offset:3px}
+#message,#cMessage{margin-top:13px;font-size:13px;line-height:1.7}
+.note{text-align:center;color:#858b98;font-size:11px;margin-top:20px}
+
+/* SECTIONS */
+section.block{max-width:1100px;margin:90px auto 0;padding:0 20px}
+.section-head{text-align:center;max-width:640px;margin:0 auto 38px}
+.section-head h2{font-size:32px;margin:10px 0}
+.section-head p{color:var(--muted);font-size:14px;line-height:1.8}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{padding:28px 24px;border:1px solid var(--border);border-radius:18px;background:var(--panel)}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--green);color:var(--black);font-weight:bold;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.step h3{font-size:17px;margin-bottom:8px}
+.step p{color:var(--muted);font-size:13px;line-height:1.8}
+
+/* FLYER */
+.flyer-wrap{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:44px;align-items:center;justify-content:center}
+.flyer-stage{perspective:1200px}
+.flyer{position:relative;border-radius:18px;overflow:hidden;border:1px solid #3a3f4a;box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(245,184,0,.15);transition:transform .15s ease-out;transform-style:preserve-3d;will-change:transform}
+.flyer img{display:block;width:100%;height:auto}
+.flyer::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),transparent 45%);opacity:0;transition:opacity .3s}
+.flyer:hover::after{opacity:1}
+.hotspot{position:absolute;border:2px solid transparent;border-radius:12px;background:transparent;cursor:pointer;z-index:2;transition:.2s;padding:0}
+.hotspot:hover,.hotspot:focus-visible,.hotspot.on{border-color:var(--green);background:rgba(216,255,62,.18);box-shadow:0 0 18px rgba(216,255,62,.45)}
+.hotspot .tip{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:var(--green);color:var(--black);font-size:10px;font-weight:bold;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
+.hotspot:hover .tip,.hotspot:focus-visible .tip{opacity:1}
+.flyer-info h3{font-size:24px;margin-bottom:12px}
+.flyer-info>p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:20px}
+.tips{list-style:none;display:grid;gap:10px;margin-bottom:24px}
+.tips li{display:flex;gap:10px;font-size:13px;color:#cfd3dc;padding:13px 15px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}
+.tips li b{color:var(--green)}
+.flyer-actions{display:flex;gap:10px;flex-wrap:wrap}
+.flyer-actions .btn{min-height:46px;font-size:13px}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;align-items:start}
+.contact-cards{display:grid;gap:12px}
+.c-card{display:flex;gap:14px;align-items:center;padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--panel);text-decoration:none;transition:.2s}
+a.c-card:hover{border-color:var(--green);transform:translateX(3px)}
+.c-icon{width:44px;height:44px;border-radius:12px;background:#292e22;color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-card small{display:block;color:var(--muted);font-size:12px}
+.c-card strong{font-size:14px;word-break:break-word}
+.contact-form{padding:32px;border:1px solid var(--border);border-radius:22px;background:var(--panel)}
+.contact-form h3{font-size:22px;margin-bottom:6px}
+.contact-form>p{color:var(--muted);font-size:13px;margin-bottom:22px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* SOCIALS */
+.social-title{font-size:13px;font-weight:bold;margin:8px 0 2px;color:var(--muted)}
+.socials{display:grid;gap:12px}
+.social{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid var(--border);border-radius:16px;background:var(--panel);text-decoration:none;transition:.2s}
+.social:hover{border-color:var(--green);transform:translateX(3px)}
+.s-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.s-icon svg{width:22px;height:22px}
+.s-fb{background:#1877f2}
+.s-ig{background:linear-gradient(45deg,#f9a03c,#e1306c 50%,#833ab4)}
+.s-tt{background:#000;border:1px solid #3a3f4a}
+.social small{display:block;color:var(--muted);font-size:12px}
+.social strong{font-size:14px}
+
+/* FOOTER SOCIALS */
+.foot-social{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;text-decoration:none;margin-bottom:12px}
+.foot-social:hover{color:var(--white)}
+.foot-social .s-icon{width:32px;height:32px;border-radius:9px}
+.foot-social .s-icon svg{width:17px;height:17px}
+
+/* FLOATING CONTACT BUTTON */
+.fab{position:fixed;right:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:9px;min-height:50px;padding:0 20px;border-radius:30px;background:var(--green);color:var(--black);font-size:14px;font-weight:bold;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:.2s}
+.fab:hover{background:#c5ed30;transform:translateY(-2px)}
+
+/* LIGHTBOX + TOAST */
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;flex-direction:column}
+.lightbox.open{display:flex}
+.lb-bar{display:flex;justify-content:flex-end;gap:8px;padding:12px}
+.lb-bar button{min-height:40px;padding:0 16px;border:1px solid var(--border);background:#14171d;color:#fff;border-radius:10px;font-size:13px;font-weight:bold;cursor:pointer}
+.lb-bar button:hover{border-color:var(--green);color:var(--green)}
+.lb-view{flex:1;overflow:auto;display:flex;justify-content:center;padding:0 12px 24px}
+.lb-view img{height:fit-content;max-width:none;width:min(720px,100%);transition:width .2s;border-radius:10px;cursor:zoom-in}
+.lb-view img.zoomed{width:1400px;cursor:zoom-out}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,30px);background:#171c10;border:1px solid var(--green);color:var(--green);padding:11px 18px;border-radius:30px;font-size:13px;opacity:0;pointer-events:none;transition:.3s;z-index:120;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* FOOTER */
+footer{margin-top:100px;border-top:1px solid var(--border);background:#0a0b0f}
+.foot-grid{max-width:1100px;margin:0 auto;padding:50px 20px 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px}
+.foot-brand img{width:70px;border-radius:14px;margin-bottom:14px}
+.foot-brand p{color:var(--muted);font-size:13px;line-height:1.8;max-width:320px}
+.foot-col h4{font-size:13px;margin-bottom:14px;color:var(--green)}
+.foot-col>a,.foot-col>span{display:block;color:var(--muted);font-size:13px;text-decoration:none;margin-bottom:10px}
+.foot-col>a:hover{color:var(--white)}
+.foot-bottom{border-top:1px solid var(--border);text-align:center;color:#727784;font-size:12px;padding:20px 10px}
+
+@media (max-width:1000px){
+ .foot-grid{grid-template-columns:1fr 1fr}
+ .foot-brand{grid-column:1/-1}
+}
+@media (max-width:900px){
+ .menu-btn{display:flex}
+ nav{position:absolute;top:100%;left:0;right:0;background:#0b0c10;border-bottom:1px solid var(--border);flex-direction:column;align-items:stretch;gap:0;padding:8px 20px 16px;display:none}
+ nav.open{display:flex}
+ nav a{padding:14px 0;border-bottom:1px solid var(--border)}
+ nav a.nav-cta{justify-content:center;margin-top:12px;border:none}
+ main{grid-template-columns:1fr;margin:24px auto;gap:16px;padding:0 15px}
+ .login-card{position:static}
+ .steps{grid-template-columns:1fr}
+ .flyer-wrap,.contact-grid{grid-template-columns:1fr;gap:28px}
+ .flyer-stage{max-width:440px;margin:0 auto}
+}
+@media (max-width:640px){
+ .brand-name{font-size:14px}
+ .brand img{width:44px;height:44px}
+ .intro{padding:30px 22px}
+ h1{font-size:36px}
+ .login-card,.contact-form{padding:26px 20px}
+ section.block{margin-top:70px}
+ .section-head h2{font-size:26px}
+ .row2,.btn-row{grid-template-columns:1fr}
+ .foot-grid{grid-template-columns:1fr}
+ .fab{right:12px;bottom:12px;padding:0 16px}
+}
+@media (max-width:380px){
+ .features{grid-template-columns:1fr}
+ h1{font-size:31px}
+ .tagline{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- Reusable icons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2-5.4A8.4 8.4 0 1 1 21 11.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+</svg>
+
+<header>
+  <div class="header-in">
+    <a class="brand" href="#top" aria-label="JAMB 300 CLUB home">
+      <img src="logo.png" alt="JAMB 300 CLUB logo">
+      <div>
+        <div class="brand-name">JAMB 300 CLUB</div>
+        <div class="tagline">Practice with purpose.</div>
+      </div>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav id="mainNav">
+      <a href="#practice">Start practice</a>
+      <a href="#how">How it works</a>
+      <a href="#flyer">Our flyer</a>
+      <a href="#contact">Follow us</a>
+      <a class="nav-cta" href="https://wa.me/2348160641823" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24"><use href="#i-wa"/></svg> Contact us
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="intro">
+    <img class="watermark" src="logo.png" alt="" aria-hidden="true">
+    <div class="badge"><span>&#9733;</span> JAMB 2026/2027 CBT PRACTICE</div>
+    <h1>Prepare with focus.<br><span>Aim for 300+.</span></h1>
+    <p class="intro-text">Build confidence before exam day with focused CBT practice. Select your subject, test your knowledge, and work towards your target score with JAMB 300 CLUB.</p>
+
+    <div class="features">
+      <div class="feature"><div class="check">&#10003;</div>Timed CBT practice</div>
+      <div class="feature"><div class="check">&#10003;</div>Automatic scoring</div>
+      <div class="feature"><div class="check">&#10003;</div>Answer review</div>
+      <div class="feature"><div class="check">&#10003;</div>Progress tracking</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b data-count="1">0</b><small>Subject per exam</small></div>
+      <div class="stat"><b data-count="30">0</b><small>Minutes per exam</small></div>
+      <div class="stat"><b data-count="300" data-suffix="+">0</b><small>Target score</small></div>
+    </div>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://wa.me/2348160641823" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24"><use href="#i-wa"/></svg> Contact us
+      </a>
+      <a class="btn btn-outline" href="#flyer">See what you get</a>
+    </div>
+  </section>
+
+  <section class="login-card" id="practice">
+    <div class="small-heading">Candidate access</div>
+    <h2>Enter the practice room</h2>
+    <p class="description">Enter your name and select your subject. Every examination lasts 30 minutes.</p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="field-label" for="candidateName">Full name</label>
+        <input type="text" id="candidateName" name="candidateName" placeholder="Enter your full name" autocomplete="name" maxlength="100" required>
+      </div>
+
+      <div class="form-group">
+        <span class="field-label">Choose your subject</span>
+        <p class="selection-help">Select 1 out of the 5 available subjects.</p>
+
+        <label class="subject-option" for="math"><input type="checkbox" name="subjects" value="Mathematics" id="math"><span>Mathematics</span></label>
+        <label class="subject-option" for="english"><input type="checkbox" name="subjects" value="English" id="english"><span>English Language</span></label>
+        <label class="subject-option" for="physics"><input type="checkbox" name="subjects" value="Physics" id="physics"><span>Physics</span></label>
+        <label class="subject-option" for="chemistry"><input type="checkbox" name="subjects" value="Chemistry" id="chemistry"><span>Chemistry</span></label>
+        <label class="subject-option" for="biology"><input type="checkbox" name="subjects" value="Biology" id="biology"><span>Biology</span></label>
+
+        <div class="progress"><i id="progressBar"></i></div>
+        <p id="subjectCount" aria-live="polite">0 of 1 subject selected</p>
+      </div>
+
+      <div class="form-group">
+        <span class="field-label">Examination duration</span>
+        <div class="duration-box">
+          <div>
+            <div class="duration-title">Standard examination time</div>
+            <div class="duration-description">Fixed for every candidate</div>
+          </div>
+          <div class="duration-value">0:30:00</div>
+        </div>
+        <p class="duration-note">Candidates cannot change the examination duration.</p>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Continue to CBT</button>
+      <div id="message" role="status" aria-live="polite"></div>
+    </form>
+
+    <div class="note">JAMB 300 CLUB · CBT PRACTICE</div>
+  </section>
+</main>
+
+<!-- HOW IT WORKS -->
+<section class="block" id="how">
+  <div class="section-head">
+    <div class="small-heading">How it works</div>
+    <h2>From sign-in to score in three steps</h2>
+    <p>No account or payment needed to try the practice room. Just pick your subject and start.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h3>Choose your subject</h3><p>Enter your name and pick the subject you want to practise.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Take the timed exam</h3><p>Answer JAMB-style questions against a fixed 30-minute clock, just like exam day.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Review your result</h3><p>See your score instantly, go through every answer and focus on your weak areas.</p></div>
+  </div>
+</section>
+
+<!-- INTERACTIVE FLYER -->
+<section class="block" id="flyer">
+  <div class="section-head">
+    <div class="small-heading">Our programme</div>
+    <h2>The complete JAMB 2026/2027 preparation platform</h2>
+    <p>Tilt the flyer, tap a subject to select it for your exam, or tap Join Now to start practising.</p>
+  </div>
+
+  <div class="flyer-wrap">
+    <div class="flyer-stage">
+      <div class="flyer" id="flyer-card">
+        <img src="flyer.png" alt="JAMB 300 CLUB flyer: the complete JAMB 2026/2027 preparation platform with expert tutorials, CBT practice, past questions, strategy plan, notes, exam tips, progress tracker and community">
+
+        <button type="button" class="hotspot" data-subject="math"      style="left:4.3%;top:38.7%;width:18.6%;height:15.5%" aria-label="Select Mathematics"><span class="tip">Select Mathematics</span></button>
+        <button type="button" class="hotspot" data-subject="physics"   style="left:23.5%;top:38.7%;width:17.6%;height:15.5%" aria-label="Select Physics"><span class="tip">Select Physics</span></button>
+        <button type="button" class="hotspot" data-subject="chemistry" style="left:41.9%;top:38.7%;width:17.6%;height:15.5%" aria-label="Select Chemistry"><span class="tip">Select Chemistry</span></button>
+        <button type="button" class="hotspot" data-subject="biology"   style="left:60.2%;top:38.7%;width:17.4%;height:15.5%" aria-label="Select Biology"><span class="tip">Select Biology</span></button>
+        <button type="button" class="hotspot" data-subject="english"   style="left:78%;top:38.7%;width:17.8%;height:15.5%" aria-label="Select English"><span class="tip">Select English</span></button>
+        <button type="button" class="hotspot" id="joinHotspot" style="left:69.8%;top:82.6%;width:27%;height:6%;border-radius:30px" aria-label="Join now, go to practice form"><span class="tip">Join now</span></button>
+      </div>
+    </div>
+
+    <div class="flyer-info">
+      <h3>Everything you need to score 300+</h3>
+      <p>Expert lessons, proven strategies and realistic CBT practice, all in one place.</p>
+      <ul class="tips">
+        <li><b>1.</b> Tap a subject card on the flyer to select it.</li>
+        <li><b>2.</b> Tap Join Now to jump straight to the practice form.</li>
+        <li><b>3.</b> Open the full-size flyer to zoom in on the details.</li>
+      </ul>
+      <div class="flyer-actions">
+        <button type="button" class="btn btn-primary" id="openLb">View full size</button>
+        <a class="btn btn-outline" href="flyer.png" download="JAMB-300-Club-Flyer.png">Download flyer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT US -->
+<section class="block" id="contact">
+  <div class="section-head">
+    <div class="small-heading">Contact us</div>
+    <h2>Questions? We are here to help</h2>
+    <p>Reach out about registration, tutorials, technical problems or partnerships, and follow JAMB 300 club on social media.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-cards">
+      <a class="c-card" id="cWhatsapp" href="https://wa.me/2348160641823" target="_blank" rel="noopener">
+        <div class="c-icon"><svg class="ico" viewBox="0 0 24 24"><use href="#i-wa"/></svg></div>
+        <div><small>WhatsApp</small><strong data-fill="whatsappLabel"></strong></div>
+      </a>
+      <a class="c-card" id="cPhone" href="#">
+        <div class="c-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+        <div><small>Phone</small><strong data-fill="phone"></strong></div>
+      </a>
+      <a class="c-card" id="cEmail" href="#">
+        <div class="c-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div>
+        <div><small>Email</small><strong data-fill="email"></strong></div>
+      </a>
+      <div class="c-card">
+        <div class="c-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><small>Support hours</small><strong data-fill="hours"></strong></div>
+      </div>
+
+      <div class="social-title">Follow us</div>
+      <div class="socials">
+        <a class="social" id="sFb" href="#" target="_blank" rel="noopener">
+          <div class="s-icon s-fb"><svg viewBox="0 0 24 24"><use href="#i-fb"/></svg></div>
+          <div><small>Facebook</small><strong>JAMB 300 club</strong></div>
+        </a>
+        <a class="social" id="sIg" href="#" target="_blank" rel="noopener">
+          <div class="s-icon s-ig"><svg viewBox="0 0 24 24"><use href="#i-ig"/></svg></div>
+          <div><small>Instagram</small><strong>JAMB 300 club</strong></div>
+        </a>
+        <a class="social" id="sTt" href="#" target="_blank" rel="noopener">
+          <div class="s-icon s-tt"><svg viewBox="0 0 24 24"><use href="#i-tt"/></svg></div>
+          <div><small>TikTok</small><strong>JAMB 300 club</strong></div>
+        </a>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <h3>Send us a message</h3>
+      <p>Choose how you would like to send it: WhatsApp or email.</p>
+      <div class="row2 form-group">
+        <div>
+          <label class="field-label" for="cName">Your name</label>
+          <input type="text" id="cName" placeholder="Full name" autocomplete="name" maxlength="100">
+        </div>
+        <div>
+          <label class="field-label" for="cEmailIn">Email (optional)</label>
+          <input type="email" id="cEmailIn" placeholder="you@example.com" autocomplete="email" maxlength="120">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="field-label" for="cMsg">Message</label>
+        <textarea id="cMsg" placeholder="How can we help you?" maxlength="1000"></textarea>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="sendWa">Send on WhatsApp</button>
+        <button type="button" class="btn btn-outline" id="sendMail">Send by email</button>
+      </div>
+      <div id="cMessage" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img src="logo.png" alt="JAMB 300 CLUB">
+      <p>Higher scores, brighter futures. Expert tutorials, timed CBT practice and a supportive community for JAMB candidates.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Quick links</h4>
+      <a href="#practice">Start practice</a>
+      <a href="#how">How it works</a>
+      <a href="#flyer">Our programme</a>
+      <a href="#contact">Contact us</a>
+    </div>
+    <div class="foot-col">
+      <h4>Get in touch</h4>
+      <a id="fWa" href="https://wa.me/2348160641823" target="_blank" rel="noopener">WhatsApp us</a>
+      <a id="fEmail" href="#"><span data-fill="email" style="margin:0"></span></a>
+      <a id="fPhone" href="#"><span data-fill="phone" style="margin:0"></span></a>
+      <span data-fill="hours"></span>
+    </div>
+    <div class="foot-col">
+      <h4>Follow us</h4>
+      <a class="foot-social" id="fFb" href="#" target="_blank" rel="noopener"><span class="s-icon s-fb"><svg viewBox="0 0 24 24"><use href="#i-fb"/></svg></span>JAMB 300 club</a>
+      <a class="foot-social" id="fIg" href="#" target="_blank" rel="noopener"><span class="s-icon s-ig"><svg viewBox="0 0 24 24"><use href="#i-ig"/></svg></span>JAMB 300 club</a>
+      <a class="foot-social" id="fTt" href="#" target="_blank" rel="noopener"><span class="s-icon s-tt"><svg viewBox="0 0 24 24"><use href="#i-tt"/></svg></span>JAMB 300 club</a>
+    </div>
+  </div>
+  <div class="foot-bottom">© 2026 JAMB 300 CLUB · CBT PRACTICE · All rights reserved.</div>
+</footer>
+
+<!-- Floating contact button -->
+<a class="fab" href="https://wa.me/2348160641823" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">
+  <svg class="ico" viewBox="0 0 24 24"><use href="#i-wa"/></svg> Contact us
+</a>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Flyer full size">
+  <div class="lb-bar">
+    <button type="button" id="lbZoom">Zoom in</button>
+    <button type="button" id="lbClose">Close</button>
+  </div>
+  <div class="lb-view"><img src="flyer.png" alt="JAMB 300 CLUB flyer, full size" id="lbImg"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================
+   EDIT YOUR DETAILS HERE (one place only)
+   ===================================================== */
+const CONTACT = {
+    whatsapp: "2348160641823",
+    whatsappLabel: "+234 816 064 1823",
+    phone: "+234 816 064 1823",
+    email: "info@jamb300club.com",          /* change to your real email */
+    hours: "Mon to Sat, 8:00 AM to 8:00 PM"
+};
+
+/* Paste your real page links between the quotes */
+const SOCIALS = {
+    facebook:  "https://www.facebook.com/",   /* e.g. https://www.facebook.com/yourpage */
+    instagram: "https://www.instagram.com/",  /* e.g. https://www.instagram.com/yourhandle */
+    tiktok:    "https://www.tiktok.com/"      /* e.g. https://www.tiktok.com/@yourhandle */
+};
+
+/* =====================================================
+   EXAM SETTINGS
+   ===================================================== */
+const CBT_PAGE = "cbtg.html";      /* the exam page this form opens */
+const REQUIRED_SUBJECTS = 1;       /* number of subjects a student takes */
+const EXAM_DURATION_MINUTES = 30;  /* exam length in minutes */
+
+/* ===== CHANGE THE SUBJECT HERE =====
+   Put ONE of these between the quotes:
+   "Mathematics"  "English"  "Physics"  "Chemistry"  "Biology"
+   Leave it empty ("") to let students choose any one subject themselves. */
+const LOCKED_SUBJECT = "Mathematics";
+
+const form = document.getElementById("loginForm");
+const nameInput = document.getElementById("candidateName");
+const subjectCount = document.getElementById("subjectCount");
+const progressBar = document.getElementById("progressBar");
+const message = document.getElementById("message");
+const checkboxes = Array.from(document.querySelectorAll('input[name="subjects"]'));
+
+/* ---------- Fill contact + social links ---------- */
+document.querySelectorAll("[data-fill]").forEach(function (el) {
+    el.textContent = CONTACT[el.dataset.fill] || "";
+});
+const telHref = "tel:" + CONTACT.phone.replace(/[^+\d]/g, "");
+const mailHref = "mailto:" + CONTACT.email;
+const waHref = "https://wa.me/" + CONTACT.whatsapp;
+document.getElementById("cWhatsapp").href = waHref;
+document.getElementById("cPhone").href = telHref;
+document.getElementById("cEmail").href = mailHref;
+document.getElementById("fPhone").href = telHref;
+document.getElementById("fEmail").href = mailHref;
+document.getElementById("fWa").href = waHref;
+
+[["sFb", "fFb", SOCIALS.facebook], ["sIg", "fIg", SOCIALS.instagram], ["sTt", "fTt", SOCIALS.tiktok]]
+    .forEach(function (s) {
+        document.getElementById(s[0]).href = s[2];
+        document.getElementById(s[1]).href = s[2];
+    });
+
+/* ---------- Mobile menu ---------- */
+const menuBtn = document.getElementById("menuBtn");
+const mainNav = document.getElementById("mainNav");
+menuBtn.addEventListener("click", function () {
+    const open = mainNav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", String(open));
+});
+mainNav.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+        mainNav.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+    });
+});
+
+/* ---------- Subject selection ---------- */
+function getSelectedSubjects() {
+    return checkboxes.filter(function (c) { return c.checked; })
+                     .map(function (c) { return c.value; });
+}
+
+function updateSubjectSelection() {
+    const count = getSelectedSubjects().length;
+
+    checkboxes.forEach(function (checkbox) {
+        const option = checkbox.closest(".subject-option");
+        const isLocked = LOCKED_SUBJECT && checkbox.value === LOCKED_SUBJECT;
+        checkbox.disabled = isLocked || (count === REQUIRED_SUBJECTS && !checkbox.checked);
+        option.classList.toggle("selected", checkbox.checked);
+        option.classList.toggle("disabled-option", checkbox.disabled && !isLocked);
+    });
+
+    document.querySelectorAll(".hotspot[data-subject]").forEach(function (h) {
+        h.classList.toggle("on", document.getElementById(h.dataset.subject).checked);
+    });
+
+    progressBar.style.width = (count / REQUIRED_SUBJECTS * 100) + "%";
+    subjectCount.classList.remove("ready", "error");
+
+    if (count === REQUIRED_SUBJECTS) {
+        subjectCount.textContent = "Subject selected. Ready!";
+        subjectCount.classList.add("ready");
+    } else {
+        subjectCount.textContent = "No subject selected. Choose 1.";
+    }
+}
+
+checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
+        message.textContent = "";
+        updateSubjectSelection();
+    });
+});
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    message.textContent = "";
+    message.style.color = "#ff7777";
+
+    const name = nameInput.value.trim();
+    const selectedSubjects = getSelectedSubjects();
+
+    if (name.length < 2) {
+        message.textContent = "Please enter your full name.";
+        nameInput.focus();
+        return;
+    }
+
+    if (selectedSubjects.length !== REQUIRED_SUBJECTS) {
+        message.textContent = "Please select 1 subject before continuing.";
+        subjectCount.classList.add("error");
+        return;
+    }
+
+    try {
+        localStorage.setItem("jam300CandidateName", name);
+        localStorage.setItem("jam300Subjects", JSON.stringify(selectedSubjects));
+        localStorage.setItem("jam300Duration", String(EXAM_DURATION_MINUTES));
+
+        message.style.color = "#d8ff3e";
+        message.textContent = "Details saved! Opening your CBT examination...";
+        window.location.href = CBT_PAGE;
+    } catch (error) {
+        message.style.color = "#ff7777";
+        message.textContent = "Unable to save your details. Please try again.";
+    }
+});
+
+/* ---------- Toast ---------- */
+const toastEl = document.getElementById("toast");
+let toastTimer;
+function toast(text) {
+    toastEl.textContent = text;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2400);
+}
+
+/* ---------- Flyer: tilt + shine ---------- */
+const flyer = document.getElementById("flyer-card");
+const canTilt = window.matchMedia("(hover:hover)").matches &&
+                !window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+if (canTilt) {
+    flyer.addEventListener("mousemove", function (e) {
+        const r = flyer.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        flyer.style.transform = "rotateY(" + ((x - .5) * 8) + "deg) rotateX(" + ((.5 - y) * 8) + "deg)";
+        flyer.style.setProperty("--mx", (x * 100) + "%");
+        flyer.style.setProperty("--my", (y * 100) + "%");
+    });
+    flyer.addEventListener("mouseleave", function () { flyer.style.transform = ""; });
+}
+
+/* ---------- Flyer: subject hotspots ---------- */
+document.querySelectorAll(".hotspot[data-subject]").forEach(function (h) {
+    h.addEventListener("click", function () {
+        if (LOCKED_SUBJECT) {
+            toast("This practice room is for " + LOCKED_SUBJECT + " only.");
+            return;
+        }
+        const box = document.getElementById(h.dataset.subject);
+        const label = box.value;
+
+        if (box.checked) {
+            box.checked = false;
+            toast(label + " removed");
+        } else if (getSelectedSubjects().length >= REQUIRED_SUBJECTS) {
+            toast("Remove the current subject first.");
+            return;
+        } else {
+            box.checked = true;
+            toast(label + " selected");
+        }
+
+        const option = box.closest(".subject-option");
+        option.classList.remove("flash");
+        void option.offsetWidth;
+        option.classList.add("flash");
+        updateSubjectSelection();
+    });
+});
+
+document.getElementById("joinHotspot").addEventListener("click", function () {
+    document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(function () { nameInput.focus({ preventScroll: true }); }, 600);
+});
+
+/* ---------- Lightbox ---------- */
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+const lbZoom = document.getElementById("lbZoom");
+
+function setZoom(on) {
+    lbImg.classList.toggle("zoomed", on);
+    lbZoom.textContent = on ? "Zoom out" : "Zoom in";
+}
+function openLb() { lb.classList.add("open"); setZoom(false); document.body.style.overflow = "hidden"; }
+function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; }
+
+document.getElementById("openLb").addEventListener("click", openLb);
+document.getElementById("lbClose").addEventListener("click", closeLb);
+lbZoom.addEventListener("click", function () { setZoom(!lbImg.classList.contains("zoomed")); });
+lbImg.addEventListener("click", function () { setZoom(!lbImg.classList.contains("zoomed")); });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLb(); });
+
+/* ---------- Contact form ---------- */
+const cName = document.getElementById("cName");
+const cEmailIn = document.getElementById("cEmailIn");
+const cMsg = document.getElementById("cMsg");
+const cMessage = document.getElementById("cMessage");
+
+function buildMessage() {
+    const name = cName.value.trim();
+    const msg = cMsg.value.trim();
+    const email = cEmailIn.value.trim();
+
+    cMessage.style.color = "#ff7777";
+    if (name.length < 2) { cMessage.textContent = "Please enter your name."; cName.focus(); return null; }
+    if (msg.length < 5) { cMessage.textContent = "Please write a short message."; cMsg.focus(); return null; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { cMessage.textContent = "Please enter a valid email address."; cEmailIn.focus(); return null; }
+
+    cMessage.textContent = "";
+    return { name: name, msg: msg, email: email };
+}
+
+document.getElementById("sendWa").addEventListener("click", function () {
+    const d = buildMessage();
+    if (!d) return;
+    const text = "Hello JAMB 300 CLUB, my name is " + d.name + ".\n\n" + d.msg + (d.email ? "\n\nMy email: " + d.email : "");
+    window.open(waHref + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+    cMessage.style.color = "#d8ff3e";
+    cMessage.textContent = "Opening WhatsApp...";
+});
+
+document.getElementById("sendMail").addEventListener("click", function () {
+    const d = buildMessage();
+    if (!d) return;
+    const body = "Name: " + d.name + (d.email ? "\nEmail: " + d.email : "") + "\n\n" + d.msg;
+    window.location.href = "mailto:" + CONTACT.email + "?subject=" + encodeURIComponent("Enquiry from " + d.name) + "&body=" + encodeURIComponent(body);
+    cMessage.style.color = "#d8ff3e";
+    cMessage.textContent = "Opening your email app...";
+});
+
+/* ---------- Count-up numbers ---------- */
+document.querySelectorAll("[data-count]").forEach(function (el) {
+    const end = Number(el.dataset.count);
+    const suffix = el.dataset.suffix || "";
+    const start = performance.now();
+    function tick(now) {
+        const p = Math.min((now - start) / 1200, 1);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+});
+
+/* ---------- Lock to one subject (if LOCKED_SUBJECT is set) ---------- */
+if (LOCKED_SUBJECT) {
+    checkboxes.forEach(function (c) {
+        const option = c.closest(".subject-option");
+        if (c.value === LOCKED_SUBJECT) {
+            c.checked = true;
+        } else {
+            option.style.display = "none";
+        }
+    });
+    document.querySelector(".selection-help").textContent = "This practice room is for " + LOCKED_SUBJECT + " only.";
+}
+
+updateSubjectSelection();
+</script>
+
+</body>
+</html>
